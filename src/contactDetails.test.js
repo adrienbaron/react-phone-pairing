@@ -1,26 +1,18 @@
-jest.dontMock('../scripts/contactDetails');
+import React from "react";
+import { shallow } from "enzyme";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import ContactDetails from "./contactDetails";
 
+describe("contactDetails", () => {
+  it("prints first name correctly", () => {
+    var testContact = {
+      name: "John Doe",
+      phone: "99999999"
+    };
+    var contactDetails = shallow(<ContactDetails data={testContact} />);
 
-const ContactDetails = require('../scripts/contactDetails');
+    var title = contactDetails.find("h2").text();
 
-describe('contactDetails', () => {
-
-	it('prints first name correctly', () => {
-		var testContact = {
-			name: "John Doe",
-			phone: "99999999"
-		}
-		var contactDetails = TestUtils.renderIntoDocument(
-			<ContactDetails data={testContact} />
-		);
-
-    var title = TestUtils.findRenderedDOMComponentWithTag(contactDetails, 'h2').textContent;
-
-		expect(title).toEqual('Contact details for: John');
-	});
-
+    expect(title).toEqual("Contact details for: John");
+  });
 });
